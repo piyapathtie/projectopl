@@ -2,7 +2,7 @@
 
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-
+import axios from './AxiosConfiguration'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -29,6 +29,14 @@ const SvgIconExampleIcons = () => (
   </div>
 );
 
+// performGetRequest(){
+//   console.log("performing get request")
+//   console.log(this.state.name)
+//   const {name} = this.state
+//   var promise = axios.get(`http://localhost:8080/login/${name}${this.makeid()}`);
+//   console.log("axios return : "+ promise);
+// }
+
 // const AppBarExampleIcon = () => (
 //   <AppBar
 //     title="Title"
@@ -47,6 +55,28 @@ class DrawerUndockedExample extends React.Component {
     };
 
   }
+
+  sendRequest = () => {
+    const data = JSON.parse(localStorage.getItem('toCart'))
+    axios.post("/order", data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  getRequest = () => {
+    axios.get("/kitchen",{hi: "there"})
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleClose = () => this.setState({open: false});
@@ -80,7 +110,7 @@ class DrawerUndockedExample extends React.Component {
           <MenuItem>{localStorage.getItem('toCart')}</MenuItem>
 
           <div class = "finishOrder">
-            <RaisedButton label="Order" secondary={true} style={style} />
+            <RaisedButton label="Order" secondary={true} style={style} onClick={this.sendRequest}/>
           </div>
 
         </Drawer>

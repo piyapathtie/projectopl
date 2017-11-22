@@ -2,6 +2,13 @@ import React, {Component} from 'react';
 import './Menu.css';
 import * as FontAwesome from 'react-icons/lib/fa'
 import Bar from './Bar.js'
+import waterfall from 'async/waterfall';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+
+
 // import Square from './index.js';
 
 
@@ -18,26 +25,46 @@ class EachMenu extends Component {
       price: props.price,
       img: props.image
     }
+
+    this.state.item = [
+    ]
   }
 
-    // items[1] = { name: '', populate_at: '', same_as: '',
-    //              autocomplete_from: '', title: '' };
-    // items[2] = { name: '', populate_at: '', same_as: '',
-    //              autocomplete_from: '', title: '' };
-
   _buttonClick = () => {
-    // console.log(this.state.name, "Clicked!")
-    localStorage.setItem("try", "tie")
-    // map.set({name: this.state.name, price: this.state.price})
-    // console.log(map.keys())
-    localStorage.setItem("toCart", map.set({name: this.state.name, price: this.state.price}))
-    console.log(map.keys())
-    console.log(map)
-    // console.log(localStorage.getItem('cart').key())
+
+    // Dont do this style!!
+    const {name, price, img} = this.state;
+    waterfall([
+    function(callback) {
+
+        callback(null, localStorage.getItem("toCart"));
+
+    },
+    function(items, callback) {
+        console.log(items === null)
+        if (items === null) {
+          var arr = []
+          callback(null, arr)
+        }else {
+          callback(null, JSON.parse(items))
+        }
+    },
+    function(data, callback) {
+      data.push({name: name, price: price});
+      callback(null, data);
+    },
+    function(data, callback) {
+        console.log(JSON.stringify(data))
+        localStorage.setItem("toCart",  JSON.stringify(data))
+        callback(null, true);
+    }
+], function (err, result) {
+});
   }
 
   render(){
     return (
+
           <div className="recipe">
             <a className="btnStyle3 btnStyle addToCart" id="addToCart" onClick={() =>  this._buttonClick()}>Add to Cart</a>
             {/* <div> */}
@@ -80,9 +107,14 @@ class Menu2 extends Component {
     }
   }
   render(){
-    localStorage.setItem('tabBarShow', 'false');
+    localStorage.setItem('tabBarShow', 'true');
     return (
+
       <div>
+
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+            <Bar />
+        {/* </MuiThemeProvider> */}
 
             <div className="body-content">
 
@@ -94,6 +126,7 @@ class Menu2 extends Component {
 
             </div>
 
+          </MuiThemeProvider>
 
       </div>
     )
