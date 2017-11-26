@@ -13,6 +13,7 @@ import './first.css'
 import { withRouter } from 'react-router-dom'
 import choose from "./App"
 import enterNo from './TableNo';
+// import App from './Cart'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -28,17 +29,20 @@ function Square(){
     <div>
 
     <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-      {localStorage.setItem('tabBarShow', 'false')}
-      <Bar />
-      <Router>
         <div>
-          <Route path="/" exact component={choose} />
-          <Route path="/kitchen" exact component={Kitchen} />
-          <Route path="/menu" exact component={Menu} />
-          <Route path="/menu2" exact component={Menu2} />
-          <Route path="/tableno" exact component={enterNo} />
+          {localStorage.setItem('tabBarShow', 'false')}
+          <Bar />
+          <Router>
+            <div>
+              <Route path="/" exact component={choose} />
+              <Route path="/kitchen" exact component={Kitchen} />
+              <Route path="/menu" exact component={Menu} />
+              <Route path="/menu2" exact component={Menu2} />
+              <Route path="/tableno" exact component={enterNo} />
+              {/* <Route path="/cart" exact component={App} /> */}
+            </div>
+          </Router>
         </div>
-      </Router>
       </MuiThemeProvider>
     </div>
   );

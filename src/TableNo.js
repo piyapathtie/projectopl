@@ -47,8 +47,9 @@ class enterNo extends React.Component {
     }
   }
   onButtonClick(){
-    console.log(this.props);
-    localStorage.setItem("id", this.input)
+    // console.log(this.props);
+    // console.log(this.state.input);
+    localStorage.setItem("tableID", parseInt(this.state.input))
     this.props.history.push('/menu2')
   }
 

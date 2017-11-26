@@ -9,12 +9,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 
-// import Square from './index.js';
-
-
-var HashMap = require('hashmap');
-var map = new HashMap();
-// map.set("name", "Tie");
 
 class EachMenu extends Component {
 
@@ -41,7 +35,7 @@ class EachMenu extends Component {
 
     },
     function(items, callback) {
-        console.log(items === null)
+        // console.log(items === null)
         if (items === null) {
           var arr = []
           callback(null, arr)
@@ -50,12 +44,14 @@ class EachMenu extends Component {
         }
     },
     function(data, callback) {
-      data.push({name: name, price: price});
+      data.push({food: name, price: price, id: localStorage.getItem("tableID"), status: "waiting"});
       callback(null, data);
     },
     function(data, callback) {
-        console.log(JSON.stringify(data))
-        localStorage.setItem("toCart",  JSON.stringify(data))
+        // console.log(JSON.stringify(data))
+        // console.log("hi"+data[1].food)
+        localStorage.setItem("toCart", JSON.stringify(data))
+        // localStorage.setItem("toCart", data)
         callback(null, true);
     }
 ], function (err, result) {
@@ -64,11 +60,10 @@ class EachMenu extends Component {
 
   render(){
     return (
-
           <div className="recipe">
             <a className="btnStyle3 btnStyle addToCart" id="addToCart" onClick={() =>  this._buttonClick()}>Add to Cart</a>
             {/* <div> */}
-            <div className="obj" id={this.state.name} onClick={() => console.log(this.state.name, " Clicked")}>
+            <div className="obj" id={this.state.name} >
               <div> <img src={this.state.img}/> </div>
               <div> <h4>{this.state.name}</h4> - {this.state.price} </div>
             </div>
