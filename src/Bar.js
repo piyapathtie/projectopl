@@ -1,5 +1,4 @@
 // import React from "react";
-
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import axios from './AxiosConfiguration'
@@ -9,18 +8,28 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
 import Cancel from 'material-ui/svg-icons/navigation/cancel';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import * as FontAwesome from 'react-icons/lib/fa'
-import {List, ListItem} from 'material-ui/List';
+// import NavigationClose from 'material-ui/svg-icons/navigation/close';
+// import * as FontAwesome from 'react-icons/lib/fa'
+import {ListItem} from 'material-ui/List';
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+// import { browserHistory } from 'react-router';
 
 import './Menu.css';
 
-import ListExample from './Cart'
+import Badge from 'material-ui/Badge';
+// import IconButton from 'material-ui/IconButton';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 
-const iconStyles = {
-  marginRight: 24
-};
+
+
+// import ListExample from './Cart'
+
+
+// const iconStyles = {
+//   marginRight: 24
+// };
 
 const style = {
   margin: 12,
@@ -48,11 +57,11 @@ function getIndex(value, arr) {
 class DrawerUndockedExample extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       openLeft: false,
       open: false
-    };
+    }
 
   }
 
@@ -64,6 +73,7 @@ class DrawerUndockedExample extends React.Component {
 
   sendRequest = () => {
     const data = JSON.parse(localStorage.getItem('toCart'))
+    // const datatry = JSON.parse({list: data})
     console.log(data)
     axios.post("/order", data)
       .then((response) => {
@@ -72,10 +82,11 @@ class DrawerUndockedExample extends React.Component {
       .catch((error) => {
         console.log(error)
       })
+
   }
 
   getRequest = () => {
-    axios.get("/eachtable/2",{hi: "there"})
+    axios.get("/kitchen",{hi: "there"})
       .then((response) => {
         console.log(response.data);
       })
@@ -102,15 +113,18 @@ class DrawerUndockedExample extends React.Component {
   render() {
     let data = JSON.parse(localStorage.getItem('toCart'));
     data = data == null ? [] : data;
-    // console.log("sss: ", data);
+    console.log("sss: ", data);
     return (
       <div>
 
-        <div class = "navbar">
+        <div className = "navbar">
         <AppBar
           title="Menu"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-          iconElementRight={<IconButton><ShoppingCart /></IconButton>}
+          iconElementRight={
+            // <Badge badgeContent={data.length} primary={true} badgeStyle={{margin: 0, top: 17, right: 17}}>
+              <IconButton><ShoppingCart /></IconButton>
+            //</Badge>
+          }
           onLeftIconButtonTouchTap={this.handleLeftToggle}
           onRightIconButtonTouchTap={this.handleToggle}
           style={{backgroundColor: '#fb226e',}}
@@ -118,8 +132,8 @@ class DrawerUndockedExample extends React.Component {
         </div>
 
         <Drawer docked={false} width={200} open={this.state.openLeft} onRequestChange={(openLeft) => this.setState({openLeft})}>
-          <MenuItem onClick={this.handleLeftClose}>Menu Item</MenuItem>
-          <MenuItem onClick={this.handleLeftClose}>Menu Item 2</MenuItem>
+          <MenuItem onClick={()=>this.props.history.push('/menu2')}>Menu</MenuItem>
+          <MenuItem onClick={() => this.props.history.push('/monitor')}>Your Order</MenuItem>
         </Drawer>
 
         <Drawer docked={false} width={200} openSecondary={true} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
@@ -138,8 +152,10 @@ class DrawerUndockedExample extends React.Component {
               )
             })
           }
-          <div class = "finishOrder">
-            <RaisedButton label="Order" secondary={true} style={style} onClick={this.getRequest}/>
+          <div className = "finishOrder">
+            <RaisedButton label="Order" secondary={true} style={style}
+              onClick={this.sendRequest}
+            />
           </div>
 
         </Drawer>
@@ -152,16 +168,17 @@ class DrawerUndockedExample extends React.Component {
 class Bar extends React.Component {
   render(){
 
-    console.log("Tabbar: " + localStorage.getItem('tabBarShow'))
-    console.log(!(localStorage.getItem('tabBarShow') == 'true'))
+    // console.log("Tabbar: " + localStorage.getItem('tabBarShow'))
+    // console.log(!(localStorage.getItem('tabBarShow') == 'true'))
+    // console.log(this.props)
 
-    if (!(localStorage.getItem('tabBarShow') == 'true')) {
+    if (!(localStorage.getItem('tabBarShow') === 'true')) {
       return (
         <div></div>
       )
     } else {
       return (
-        <DrawerUndockedExample />
+        <Route component={DrawerUndockedExample} />
       );
     }
   }

@@ -8,11 +8,13 @@ import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom
 import AppBar from 'material-ui/AppBar';
 import './Menu.css';
 import * as FontAwesome from 'react-icons/lib/fa'
+import DrawerUndockedExample from "./Bar"
 import Bar from "./Bar"
 import './first.css'
 import { withRouter } from 'react-router-dom'
 import choose from "./App"
 import enterNo from './TableNo';
+import Monitor from './Monitor';
 // import App from './Cart'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -39,7 +41,8 @@ function Square(){
               <Route path="/menu" exact component={Menu} />
               <Route path="/menu2" exact component={Menu2} />
               <Route path="/tableno" exact component={enterNo} />
-              {/* <Route path="/cart" exact component={App} /> */}
+              <Route path="/monitor" exact component={Monitor} />
+              {/* <Route component={Bar} /> */}
             </div>
           </Router>
         </div>

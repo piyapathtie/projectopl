@@ -44,11 +44,12 @@ class EachMenu extends Component {
         }
     },
     function(data, callback) {
-      data.push({food: name, price: price, id: localStorage.getItem("tableID"), status: "waiting"});
+      data.push({food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "waiting"});
       callback(null, data);
     },
     function(data, callback) {
-        // console.log(JSON.stringify(data))
+        console.log(data)
+        console.log(JSON.stringify(data))
         // console.log("hi"+data[1].food)
         localStorage.setItem("toCart", JSON.stringify(data))
         // localStorage.setItem("toCart", data)
@@ -56,6 +57,7 @@ class EachMenu extends Component {
     }
 ], function (err, result) {
 });
+
   }
 
   render(){
@@ -79,24 +81,49 @@ class Menu2 extends Component {
     this.state = {
       menus: [
         {
-          image: "/img/img1.png",
-          name: "Pineapple",
-          price: "10.00"
+          image: "/img/BAKEDLEGOFLAMB.jpg",
+          name: "BAKED LEG OF LAMB",
+          price: 490
         },
         {
-          image: "/img/img2.png",
-          name: "fish",
-          price: "10.10"
+          image: "/img/freshsaltedsalmon.jpg",
+          name: "FRESH SALTED SALMON",
+          price: 250
         },
         {
-          image: "/img/img3.png",
-          name: "shell",
-          price: "10.10"
+          image: "/img/kaoobsaparod.jpg",
+          name: "KAO OB SAPAROD",
+          price: 190
         },
         {
-          image: "/img/img4.png",
-          name: "pork",
-          price: "10.10"
+          image: "/img/kaopad.jpg",
+          name: "KAO PAD",
+          price: 150
+        },
+        {
+          image: "/img/kaophadphuket.jpg",
+          name: "KAO PAD PHUKET",
+          price: 180
+        },
+        {
+          image: "/img/nasigoreng.jpg",
+          name: "NASI GORENG",
+          price: 180
+        },
+        {
+          image: "/img/phadseelew.jpg",
+          name: "PHAD SEELEW",
+          price: 150
+        },
+        {
+          image: "/img/phadthaikungsod.jpg",
+          name: "PHAD THAI KUNG SOD",
+          price: 180
+        },
+        {
+          image: "/img/vodkasnack.jpg",
+          name: "VODKA SNACK",
+          price: 300
         }
       ]
     }
@@ -108,11 +135,10 @@ class Menu2 extends Component {
       <div>
 
         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+          <div>
             <Bar />
-        {/* </MuiThemeProvider> */}
 
             <div className="body-content">
-
                 <div className="recipe-menu">
                   {this.state.menus.map((menu) => {
                     return (<EachMenu name={menu.name} price={menu.price} image={menu.image}/>)
@@ -121,6 +147,7 @@ class Menu2 extends Component {
 
             </div>
 
+          </div>
           </MuiThemeProvider>
 
       </div>
