@@ -23,14 +23,6 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 
 
-
-// import ListExample from './Cart'
-
-
-// const iconStyles = {
-//   marginRight: 24
-// };
-
 const style = {
   margin: 12,
   bottom: 0,
@@ -82,7 +74,9 @@ class DrawerUndockedExample extends React.Component {
       .catch((error) => {
         console.log(error)
       })
-
+    localStorage.setItem('toCart', JSON.stringify([]))
+    this.props.history.push('/monitor')
+    // localStorage.setItem('toCart', [])
   }
 
   getRequest = () => {
@@ -102,18 +96,11 @@ class DrawerUndockedExample extends React.Component {
   handleLeftToggle = () => this.setState({openLeft: !this.state.openLeft});
   handleLeftClose = () => this.setState({openLeft: false});
 
-  // onButtonClick(){
-  //   // console.log(this.props);
-  //   // console.log(this.state.input);
-  //   localStorage.setItem("tableID", parseInt(this.state.input))
-  //   this.props.history.push('/menu2')
-  // }
-
 
   render() {
     let data = JSON.parse(localStorage.getItem('toCart'));
     data = data == null ? [] : data;
-    console.log("sss: ", data);
+    // console.log("sss: ", data);
     return (
       <div>
 

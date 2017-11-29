@@ -15,11 +15,13 @@ import { withRouter } from 'react-router-dom'
 import choose from "./App"
 import enterNo from './TableNo';
 import Monitor from './Monitor';
+import Dessert from './Dessert';
 // import App from './Cart'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import Cashier from './Cashier'
 
 function Square(){
 
@@ -42,6 +44,8 @@ function Square(){
               <Route path="/menu2" exact component={Menu2} />
               <Route path="/tableno" exact component={enterNo} />
               <Route path="/monitor" exact component={Monitor} />
+              <Route path="/cashier" exact component={Cashier} />
+              <Route path="/dessert" exact component={Dessert} />
               {/* <Route component={Bar} /> */}
             </div>
           </Router>

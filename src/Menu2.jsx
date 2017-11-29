@@ -17,7 +17,8 @@ class EachMenu extends Component {
     this.state = {
       name: props.name,
       price: props.price,
-      img: props.image
+      img: props.image,
+      kind: props.kind,
     }
 
     this.state.item = [
@@ -27,7 +28,7 @@ class EachMenu extends Component {
   _buttonClick = () => {
 
     // Dont do this style!!
-    const {name, price, img} = this.state;
+    const {kind, name, price, img} = this.state;
     waterfall([
     function(callback) {
 
@@ -44,7 +45,7 @@ class EachMenu extends Component {
         }
     },
     function(data, callback) {
-      data.push({food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "waiting"});
+      data.push({kind: kind, food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "waiting"});
       callback(null, data);
     },
     function(data, callback) {
@@ -81,46 +82,55 @@ class Menu2 extends Component {
     this.state = {
       menus: [
         {
+          kind: "food",
           image: "/img/BAKEDLEGOFLAMB.jpg",
           name: "BAKED LEG OF LAMB",
           price: 490
         },
         {
+          kind: "food",
           image: "/img/freshsaltedsalmon.jpg",
           name: "FRESH SALTED SALMON",
           price: 250
         },
         {
+          kind: "food",
           image: "/img/kaoobsaparod.jpg",
           name: "KAO OB SAPAROD",
           price: 190
         },
         {
+          kind: "food",
           image: "/img/kaopad.jpg",
           name: "KAO PAD",
           price: 150
         },
         {
+          kind: "food",
           image: "/img/kaophadphuket.jpg",
           name: "KAO PAD PHUKET",
           price: 180
         },
         {
+          kind: "food",
           image: "/img/nasigoreng.jpg",
           name: "NASI GORENG",
           price: 180
         },
         {
+          kind: "food",
           image: "/img/phadseelew.jpg",
           name: "PHAD SEELEW",
           price: 150
         },
         {
+          kind: "food",
           image: "/img/phadthaikungsod.jpg",
           name: "PHAD THAI KUNG SOD",
           price: 180
         },
         {
+          kind: "food",
           image: "/img/vodkasnack.jpg",
           name: "VODKA SNACK",
           price: 300
@@ -141,7 +151,7 @@ class Menu2 extends Component {
             <div className="body-content">
                 <div className="recipe-menu">
                   {this.state.menus.map((menu) => {
-                    return (<EachMenu name={menu.name} price={menu.price} image={menu.image}/>)
+                    return (<EachMenu kind={menu.kind} name={menu.name} price={menu.price} image={menu.image}/>)
                   })}
                 </div>
 

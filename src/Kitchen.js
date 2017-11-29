@@ -49,9 +49,6 @@ class Kitchen extends React.Component {
   }
 
   updateItemStatus = (uuid, status) => {
-    // const data = JSON.parse(localStorage.getItem('toCart'))
-    // const datatry = JSON.parse({list: data})
-    // console.log(data)
     axios.put(`/update_kitchen/${uuid}/${status}`)
       .then((response) => {
         this.fetchData()
@@ -81,11 +78,12 @@ class Kitchen extends React.Component {
       <div>
 
         <Table>
-          <TableHeader displayRowCheckbox={showCheckboxes}>
+          <TableHeader displaySelectAll={this.state.showCheckboxes} adjustForCheckbox={this.state.showCheckboxes}>
 
           <TableRow>
-            <TableHeaderColumn>ID</TableHeaderColumn>
+            <TableHeaderColumn>Table Number</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>Button</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -105,15 +103,9 @@ class Kitchen extends React.Component {
                 <MenuItem  primaryText="Done" onClick={() => this.updateItemStatus(each.UUID, "Done")}/>
               </TableRowColumn>
               <TableRowColumn>{each.status}</TableRowColumn>
-              <TableRowColumn> <RaisedButton onClick={() => console.log(each)}/> </TableRowColumn>
+              {/* <TableRowColumn> <RaisedButton onClick={() => console.log(each)}/> </TableRowColumn> */}
             </TableRow>
 
-            // <ListItem
-            //   // onClick={() => console.log(getIndex(each, data))}
-            //   primaryText = {each.food}
-            //   secondaryText = {each.price}
-            //   rightIconButton={<DropDownMenuOpenImmediateExample/>}
-            //   />
             )
           })
         }

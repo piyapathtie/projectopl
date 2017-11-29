@@ -4,48 +4,11 @@ import {orange500, blue500} from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { browserHistory } from 'react-router';
+import axios from './AxiosConfiguration'
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-
-class DialogExampleModal extends React.Component {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
-  render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-    ];
-
-    return (
-      <div>
-        <RaisedButton label="Modal Dialog" onClick={this.handleOpen} />
-        <Dialog
-          title="Warning"
-          actions={actions}
-          modal={true}
-          open={this.state.open}
-        >
-          Please enter only the number
-        </Dialog>
-      </div>
-    );
-  }
-}
 
 
 const styles = {
@@ -87,6 +50,8 @@ class enterNo extends React.Component {
     this.state = {
       input: "",
       open: false,
+      checkfrombn: true,
+      opendup: false,
     }
   }
 
@@ -98,19 +63,62 @@ class enterNo extends React.Component {
     this.setState({open: false});
   };
 
+
+  handleOpendup = () => {
+    this.setState({opendup: true});
+  };
+
+  handleClosedup = () => {
+    this.setState({opendup: false});
+  };
+
+  checkexistedtable = (table_id) => {
+    axios.get(`/check_id/${String(table_id)}`)
+      .then((response) => {
+        // console.log("from bn", response)
+        this.setState({checkfrombn: response.data})
+        // console.log("this is .data", this.state.checkfrombn)
+      }).then(()=>{
+
+        if(this.state.checkfrombn === false){
+          // console.log("mai dai woiiii")
+          this.setState({opendup: true})
+        }
+
+        else{
+          localStorage.setItem("tableID", parseInt(this.state.input))
+          this.props.history.push('/menu2')
+        }
+
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({open: true});
+      })
+  }
+
   onButtonClick(){
-    // console.log(this.props);
-    console.log(Number.isInteger(parseInt(this.state.input)));
-    if(!Number.isInteger(parseInt(this.state.input))){
-      // console.log("do something")
-      this.setState({open: true});
 
-    }
-    else{
-      localStorage.setItem("tableID", parseInt(this.state.input))
-      this.props.history.push('/menu2')
-    }
+    this.checkexistedtable(parseInt(this.state.input))
 
+    // console.log("in state", this.state.checkfrombn)
+    //
+    //
+    //
+    // if(!Number.isInteger(parseInt(this.state.input))){
+    //   this.setState({open: true});
+    // }
+    // // console.log(this.checkexistedtable(parseInt(this.state.input).data) === "false")
+    //
+    // else if(this.state.checkfrombn === false){
+    //   // console.log("mai dai woiiii")
+    //   this.setState({opendup: true})
+    // }
+    //
+    // else{
+    //   localStorage.setItem("tableID", parseInt(this.state.input))
+    //   this.props.history.push('/menu2')
+    // }
   }
 
   handleTest(e) {
@@ -127,6 +135,14 @@ class enterNo extends React.Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose}
+      />,
+    ];
+
+    const actionsdup = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClosedup}
       />,
     ];
 
@@ -151,6 +167,15 @@ class enterNo extends React.Component {
               open={this.state.open}
             >
               Please enter only the number
+            </Dialog>
+
+            <Dialog
+              title="Warning"
+              actions={actionsdup}
+              modal={true}
+              open={this.state.opendup}
+            >
+              This number is already used
             </Dialog>
           </p>
 
