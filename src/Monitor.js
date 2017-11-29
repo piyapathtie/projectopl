@@ -185,7 +185,7 @@ class Monitor extends React.Component {
               <TableRowColumn>{each.status}</TableRowColumn>
               <TableRowColumn>
 
-                <IconButton disabled={!(each.status === "waiting")} onClick={() => this.remove(each.UUID)}>
+                <IconButton disabled={!(each.status === "Waiting")} onClick={() => this.remove(each.UUID)}>
                   <Cancel />
                 </IconButton>
 

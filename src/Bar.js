@@ -28,11 +28,6 @@ const style = {
   bottom: 0,
 };
 
-// const SvgIconExampleIcons = () => (
-//   <div>
-//     <ShoppingCart style={iconStyles}/>
-//   </div>
-// );
 
 
 function getIndex(value, arr) {
@@ -119,12 +114,12 @@ class DrawerUndockedExample extends React.Component {
         </div>
 
         <Drawer docked={false} width={200} open={this.state.openLeft} onRequestChange={(openLeft) => this.setState({openLeft})}>
-          <MenuItem onClick={()=>this.props.history.push('/menu2')}>Menu</MenuItem>
+          <MenuItem onClick={()=>this.props.history.push('/main')}>Menu</MenuItem>
           <MenuItem onClick={() => this.props.history.push('/monitor')}>Your Order</MenuItem>
         </Drawer>
 
         <Drawer docked={false} width={200} openSecondary={true} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
-          <AppBar title="Cart" onClick={this.handleClose} style={{backgroundColor: '#fb226e',}}/>
+          <AppBar title="Cart" onClick={this.handleClose} style={{backgroundColor: "#D50000"}}/>
           {/* {data.map((each) => each.food)} */}
 
           {data.map((each) => {
@@ -154,20 +149,10 @@ class DrawerUndockedExample extends React.Component {
 
 class Bar extends React.Component {
   render(){
+    return (
+      <Route component={DrawerUndockedExample} />
+    );
 
-    // console.log("Tabbar: " + localStorage.getItem('tabBarShow'))
-    // console.log(!(localStorage.getItem('tabBarShow') == 'true'))
-    // console.log(this.props)
-
-    if (!(localStorage.getItem('tabBarShow') === 'true')) {
-      return (
-        <div></div>
-      )
-    } else {
-      return (
-        <Route component={DrawerUndockedExample} />
-      );
-    }
   }
 }
 

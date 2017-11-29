@@ -8,6 +8,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
+import TabsExampleSwipeable from './Tab.js';
+
+import SwipeableViews from 'react-swipeable-views';
+
 
 
 class EachMenu extends Component {
@@ -45,7 +49,7 @@ class EachMenu extends Component {
         }
     },
     function(data, callback) {
-      data.push({kind: kind, food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "waiting"});
+      data.push({kind: kind, food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "Waiting"});
       callback(null, data);
     },
     function(data, callback) {
@@ -83,58 +87,46 @@ class Menu2 extends Component {
       menus: [
         {
           kind: "food",
-          image: "/img/BAKEDLEGOFLAMB.jpg",
-          name: "BAKED LEG OF LAMB",
-          price: 490
-        },
-        {
-          kind: "food",
-          image: "/img/freshsaltedsalmon.jpg",
-          name: "FRESH SALTED SALMON",
+          image: "/img/food/FRIEDSALMONSTEAK.jpg",
+          name: "FRIED SALMON STEAK",
           price: 250
         },
         {
           kind: "food",
-          image: "/img/kaoobsaparod.jpg",
-          name: "KAO OB SAPAROD",
-          price: 190
+          image: "/img/food/FRIEDFILLETWHITESANPPER.jpg",
+          name: "FRIEDFILLETWHITESANPPER",
+          price: 220
         },
         {
           kind: "food",
-          image: "/img/kaopad.jpg",
-          name: "KAO PAD",
-          price: 150
+          image: "/img/food/SALMONPOTATO.jpg",
+          name: "SALMON POTATO",
+          price: 280
         },
         {
           kind: "food",
-          image: "/img/kaophadphuket.jpg",
-          name: "KAO PAD PHUKET",
+          image: "/img/food/CHICKENFARANG.jpg",
+          name: "CHICKEN FARANG",
+          price: 250
+        },
+        {
+          kind: "food",
+          image: "/img/food/CHICKENLIVER.jpg",
+          name: "CHICKEN LIVER",
+          price: 220
+        },
+        {
+          kind: "food",
+          image: "/img/food/CHICKENPOTATO.jpg",
+          name: "CHICKEN POTATO",
+          price: 250
+        },
+        {
+          kind: "food",
+          image: "/img/food/BAKEDCHICKENLEG.jpg",
+          name: "BAKED CHICKEN LEG",
           price: 180
         },
-        {
-          kind: "food",
-          image: "/img/nasigoreng.jpg",
-          name: "NASI GORENG",
-          price: 180
-        },
-        {
-          kind: "food",
-          image: "/img/phadseelew.jpg",
-          name: "PHAD SEELEW",
-          price: 150
-        },
-        {
-          kind: "food",
-          image: "/img/phadthaikungsod.jpg",
-          name: "PHAD THAI KUNG SOD",
-          price: 180
-        },
-        {
-          kind: "food",
-          image: "/img/vodkasnack.jpg",
-          name: "VODKA SNACK",
-          price: 300
-        }
       ]
     }
   }
@@ -146,7 +138,6 @@ class Menu2 extends Component {
 
         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <div>
-            <Bar />
 
             <div className="body-content">
                 <div className="recipe-menu">

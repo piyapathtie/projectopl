@@ -22,6 +22,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import Cashier from './Cashier'
+import TabsExampleSwipeable from './Tab.js'
+import DessertKitchen from './Dessertkit.js'
 
 function Square(){
 
@@ -32,24 +34,21 @@ function Square(){
   return (
     <div>
 
-    <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div>
-          {localStorage.setItem('tabBarShow', 'false')}
-          <Bar />
-          <Router>
-            <div>
-              <Route path="/" exact component={choose} />
-              <Route path="/kitchen" exact component={Kitchen} />
-              <Route path="/menu" exact component={Menu} />
-              <Route path="/menu2" exact component={Menu2} />
-              <Route path="/tableno" exact component={enterNo} />
-              <Route path="/monitor" exact component={Monitor} />
-              <Route path="/cashier" exact component={Cashier} />
-              <Route path="/dessert" exact component={Dessert} />
-              {/* <Route component={Bar} /> */}
-            </div>
-          </Router>
-        </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Router>
+          <div>
+            <Route path="/" exact component={choose} />
+            <Route path="/kitchen" exact component={Kitchen} />
+            {/* <Route path="/menu" exact component={Menu} />
+            <Route path="/menu2" exact component={Menu2} /> */}
+            <Route path="/tableno" exact component={enterNo} />
+            <Route path="/monitor" exact component={Monitor} />
+            <Route path="/cashier" exact component={Cashier} />
+            <Route path="/dessert" exact component={Dessert} />
+            <Route path="/main" exact component={TabsExampleSwipeable} />
+            <Route path="/dessertkitchen" exact component={DessertKitchen} />
+          </div>
+        </Router>
       </MuiThemeProvider>
     </div>
   );

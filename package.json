@@ -20,7 +20,8 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "react-shopping-cart": "^1.8.1"
+    "react-shopping-cart": "^1.8.1",
+    "react-swipeable-views": "^0.12.12"
   },
   "scripts": {
     "start": "react-scripts start",

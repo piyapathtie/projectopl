@@ -1,47 +1,14 @@
-/*Scroll Design*/
-::-webkit-scrollbar {
-	z-index: 100;
-      width: 5px;
-} /* this targets the default scrollbar (compulsory) */
-::-webkit-scrollbar-track {
-      background-color: #452732 ;
-} /* the new scrollbar will have a flat appearance with the set background color */
 
-::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.2);
-} /* this will style the thumb, ignoring the track */
-
-::-webkit-scrollbar-button {
-      background-color: #000;
-} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
-
-::-webkit-scrollbar-corner {
-      background-color: #000;
-} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
 
 
 /* Style CSS */
-*{
+html, body{
 	margin: 0px;
 	padding: 0px;
 }
 
 input{
   outline-color: #C98474;
-}
-
-.navbar {
-    /*height: 60px;*/
-    width: 100%;
-    position: fixed;
-    z-index: 1;
-    /*background-color: #A7D2CB;*/
-    border-radius: 0px;
-    /*padding: 0px 100px;*/
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
 }
 
 .btnStyle{
@@ -141,13 +108,11 @@ input{
 }
 
 .body-content{
-	position: relative;
-	right: 0px;
-	width: 80%;
-	margin: 0px auto;
+	/*position: relative;*/
 	display: flex;
+	padding-left: 100px;
+	padding-right: 100px;
 	justify-content: space-around;
-
 	transition: all .2s ease-in-out;
 }
 
@@ -165,8 +130,8 @@ input{
 	/*background-size: 100% 100%;*/
 	padding: 10px;
   margin-bottom: 40px;
-	/*width: 300px;
-  height:300px;*/
+	/*width: 300px;*/
+  height:300px;
 	position: relative;
 }
 

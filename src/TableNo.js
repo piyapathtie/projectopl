@@ -87,7 +87,7 @@ class enterNo extends React.Component {
 
         else{
           localStorage.setItem("tableID", parseInt(this.state.input))
-          this.props.history.push('/menu2')
+          this.props.history.push('/main')
         }
 
       })
@@ -100,25 +100,6 @@ class enterNo extends React.Component {
   onButtonClick(){
 
     this.checkexistedtable(parseInt(this.state.input))
-
-    // console.log("in state", this.state.checkfrombn)
-    //
-    //
-    //
-    // if(!Number.isInteger(parseInt(this.state.input))){
-    //   this.setState({open: true});
-    // }
-    // // console.log(this.checkexistedtable(parseInt(this.state.input).data) === "false")
-    //
-    // else if(this.state.checkfrombn === false){
-    //   // console.log("mai dai woiiii")
-    //   this.setState({opendup: true})
-    // }
-    //
-    // else{
-    //   localStorage.setItem("tableID", parseInt(this.state.input))
-    //   this.props.history.push('/menu2')
-    // }
   }
 
   handleTest(e) {

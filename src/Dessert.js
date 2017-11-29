@@ -83,25 +83,25 @@ class Dessert extends Component {
       menus: [
         {
           kind: "dessert",
-          image: "/img/HONEYCAKE.jpg",
+          image: "/img/dessert/HONEYCAKE.jpg",
           name: "HONEY CAKE",
           price: 123
         },
         {
           kind: "dessert",
-          image: "/img/PANCAKES.jpg",
+          image: "/img/dessert/PANCAKES.jpg",
           name: "PANCAKES",
           price: 90
         },
         {
           kind: "dessert",
-          image: "/img/PANCAKESWITHBANANAANDCARAMEL.jpg",
+          image: "/img/dessert/PANCAKESWITHBANANAANDCARAMEL.jpg",
           name: "BANANA PANCAKES",
           price: 130
         },
         {
           kind: "dessert",
-          image: "/img/PANCAKESWITHCOTTAGECHEESEANDRAISIN.jpg",
+          image: "/img/dessert/PANCAKESWITHCOTTAGECHEESEANDRAISIN.jpg",
           name: "COTTAGE CHEESE PANCAKES",
           price: 140
         },
@@ -116,7 +116,7 @@ class Dessert extends Component {
 
         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <div>
-            <Bar />
+            {/* <Bar /> */}
 
             <div className="body-content">
                 <div className="recipe-menu">
