@@ -33,6 +33,8 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import AppBar from 'material-ui/AppBar';
+
 
 
 class DessertKitchen extends React.Component {
@@ -40,12 +42,24 @@ class DessertKitchen extends React.Component {
     super(props)
     this.state = {
       showCheckboxes: false,
-      data: []
+      data: [],
+      secondsElapsed: 0,
     }
+    this.tick  = this.tick.bind(this)
+  }
+
+  tick = () => {
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+    this.fetchData();
   }
 
   componentDidMount() {
-    this.fetchData()
+    this.tick()
+    this.interval = setInterval(this.tick, 5000);
+  }
+
+  componentWillUnmount = () =>{
+    clearInterval(this.interval);
   }
 
   updateItemStatus = (uuid, status) => {
@@ -61,6 +75,7 @@ class DessertKitchen extends React.Component {
   }
 
   fetchData = () => {
+    console.log("fetch")
     axios.get("/dessert")
       .then((response) => {
         this.setState({data: response.data})
@@ -73,9 +88,16 @@ class DessertKitchen extends React.Component {
   render(){
     // data = data == null ? [] : data;
     const {data, showCheckboxes} = this.state
-    console.log("this is data : ", data);
+    // console.log("this is data : ", data);
     return (
       <div>
+
+        <AppBar
+          title="Dessert kitchen"
+          style={{backgroundColor: "#D50000"}}
+          iconElementLeft={<icon/>}
+          // iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
 
         <Table>
           <TableHeader displaySelectAll={this.state.showCheckboxes} adjustForCheckbox={this.state.showCheckboxes}>

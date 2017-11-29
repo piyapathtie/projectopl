@@ -40,9 +40,12 @@ class Monitor extends React.Component {
     this.setState({secondsElapsed: this.state.secondsElapsed + 1});
     this.fetchData(String(localStorage.getItem("tableID")));
   }
+
   componentDidMount = () => {
+    this.fetchData(String(localStorage.getItem("tableID")));
     this.interval = setInterval(this.tick, 5000);
   }
+
   componentWillUnmount = () =>{
     clearInterval(this.interval);
   }
@@ -85,7 +88,7 @@ class Monitor extends React.Component {
 
   finish = (table_id) => {
     this.handleClosethank()
-    this.props.history.push('/menu2')
+    this.props.history.push('/main')
     axios.delete(`/check_out_2/${String(table_id)}`)
     .then((response) => {
       console.log(response)
@@ -99,7 +102,8 @@ class Monitor extends React.Component {
   remove = (uuid) => {
     axios.delete(`/delfood/${String(uuid)}`)
       .then((response) => {
-        console.log(response)
+        this.fetchData(String(localStorage.getItem("tableID")));
+        // console.log(response)
       })
       .catch((error) => {
         console.log(error)

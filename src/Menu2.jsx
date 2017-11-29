@@ -53,8 +53,8 @@ class EachMenu extends Component {
       callback(null, data);
     },
     function(data, callback) {
-        console.log(data)
-        console.log(JSON.stringify(data))
+        // console.log(data)
+        // console.log(JSON.stringify(data))
         // console.log("hi"+data[1].food)
         localStorage.setItem("toCart", JSON.stringify(data))
         // localStorage.setItem("toCart", data)

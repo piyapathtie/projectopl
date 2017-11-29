@@ -33,6 +33,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import AppBar from 'material-ui/AppBar';
 
 
 class Cashier extends React.Component {
@@ -40,17 +41,29 @@ class Cashier extends React.Component {
     super(props)
     this.state = {
       showCheckboxes: false,
-      data: []
+      data: [],
+      secondsElapsed: 0,
     }
+    this.tick  = this.tick.bind(this)
+  }
+
+  tick = () => {
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+    this.fetchData();
   }
 
   componentDidMount() {
-    this.fetchData()
+    this.tick()
+    this.interval = setInterval(this.tick, 5000);
+  }
+
+  componentWillUnmount = () =>{
+    clearInterval(this.interval);
   }
 
   updateItemStatus = (uuid, status) => {
-    console.log(uuid)
-    console.log(status)
+    // console.log(uuid)
+    // console.log(status)
     axios.post(`/cashier_update/${uuid}/${status}`)
       .then((response) => {
         this.fetchData()
@@ -63,6 +76,7 @@ class Cashier extends React.Component {
   }
 
   fetchData = () => {
+    console.log("fetch")
     axios.get(`/cashier`)
       .then((response) => {
         this.setState({data: response.data})
@@ -75,16 +89,23 @@ class Cashier extends React.Component {
   render(){
     // data = data == null ? [] : data;
     const {data, showCheckboxes} = this.state
-    console.log("this is data : ", data);
+    // console.log("this is data : ", data);
     return (
       <div>
+
+        <AppBar
+          title="Cashier"
+          style={{backgroundColor: "#D50000"}}
+          iconElementLeft={<icon/>}
+          // iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
 
         <Table>
           <TableHeader displaySelectAll={this.state.showCheckboxes} adjustForCheckbox={this.state.showCheckboxes}>
 
           <TableRow>
             <TableHeaderColumn>Table ID</TableHeaderColumn>
-            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>Price</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -104,7 +125,7 @@ class Cashier extends React.Component {
                 <MenuItem  primaryText="Done" onClick={() => this.updateItemStatus(each.UUID, "Done")}/> */}
               </TableRowColumn>
               <TableRowColumn>{each.status}</TableRowColumn>
-              <TableRowColumn> <RaisedButton onClick={() => console.log(each)}/> </TableRowColumn>
+              {/* <TableRowColumn> <RaisedButton onClick={() => console.log(each)}/> </TableRowColumn> */}
             </TableRow>
 
             )

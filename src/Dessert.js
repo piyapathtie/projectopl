@@ -45,7 +45,7 @@ class EachMenu extends Component {
         }
     },
     function(data, callback) {
-      data.push({kind: kind, food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "waiting"});
+      data.push({kind: kind, food: name, price: price, id: parseInt(localStorage.getItem("tableID")), status: "Waiting"});
       callback(null, data);
     },
     function(data, callback) {

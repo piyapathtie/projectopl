@@ -61,7 +61,7 @@ class DrawerUndockedExample extends React.Component {
   sendRequest = () => {
     const data = JSON.parse(localStorage.getItem('toCart'))
     // const datatry = JSON.parse({list: data})
-    console.log(data)
+    // console.log(data)
     axios.post("/order", data)
       .then((response) => {
         console.log(response.data);
@@ -101,7 +101,7 @@ class DrawerUndockedExample extends React.Component {
 
         <div className = "navbar">
         <AppBar
-          title="Menu"
+          title="Spice House"
           iconElementRight={
             // <Badge badgeContent={data.length} primary={true} badgeStyle={{margin: 0, top: 17, right: 17}}>
               <IconButton><ShoppingCart /></IconButton>
@@ -109,7 +109,7 @@ class DrawerUndockedExample extends React.Component {
           }
           onLeftIconButtonTouchTap={this.handleLeftToggle}
           onRightIconButtonTouchTap={this.handleToggle}
-          style={{backgroundColor: '#fb226e',}}
+          style={{backgroundColor: "#D50000"}}
         />
         </div>
 

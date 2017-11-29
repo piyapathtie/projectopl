@@ -41,19 +41,19 @@ export default class TabsExampleSwipeable extends React.Component {
   render() {
     return (
       <div>
-          <div style={{position: "fixed", width:'100%', zIndex: 10000}}>
+          <div style={{position: "fixed", width:'100%', zIndex: 10000, backgroundColor: 'black'}}>
           <Bar />
           <Tabs
             style={{backgroundColor: "#E53935"}}
             onChange={this.handleChange}
             value={this.state.slideIndex}
           >
-            <Tab label="Appetizers" value={0} style={{backgroundColor: '#fb226e',}} />
-            <Tab label="Salad" value={1} style={{backgroundColor: '#fb226e',}}/>
-            <Tab label="Soup" value={2} style={{backgroundColor: '#fb226e',}}/>
-            <Tab label="Food" value={3} style={{backgroundColor: '#fb226e',}}/>
-            <Tab label="Rice & Noodle" value={4} style={{backgroundColor: '#fb226e',}}/>
-            <Tab label="Dessert" value={5} style={{backgroundColor: '#fb226e',}}/>
+            <Tab label="Appetizers" value={0} style={{backgroundColor: '#FF5252', borderRadius: "0px"}} />
+            <Tab label="Salad" value={1} style={{backgroundColor: '#FF5252',  borderRadius: "0px"}}/>
+            <Tab label="Soup" value={2} style={{backgroundColor: '#FF5252',  borderRadius: "0px"}}/>
+            <Tab label="Food" value={3} style={{backgroundColor: '#FF5252',  borderRadius: "0px"}}/>
+            <Tab label="Rice & Noodle" value={4} style={{backgroundColor: '#FF5252',  borderRadius: "0px"}}/>
+            <Tab label="Dessert" value={5} style={{backgroundColor: '#FF5252', borderRadius: "0px"}}/>
           </Tabs>
           </div>
 

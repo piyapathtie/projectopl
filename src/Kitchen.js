@@ -23,6 +23,7 @@ import Toggle from 'material-ui/Toggle';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import AppBar from 'material-ui/AppBar';
 
 import {
   Table,
@@ -40,12 +41,25 @@ class Kitchen extends React.Component {
     super(props)
     this.state = {
       showCheckboxes: false,
-      data: []
+      data: [],
+      secondsElapsed: 0,
     }
+    this.tick  = this.tick.bind(this)
+  }
+
+  tick = () => {
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+    this.fetchData();
   }
 
   componentDidMount() {
-    this.fetchData()
+    // this.fetchData()
+    this.tick()
+    this.interval = setInterval(this.tick, 5000);
+  }
+
+  componentWillUnmount = () =>{
+    clearInterval(this.interval);
   }
 
   updateItemStatus = (uuid, status) => {
@@ -61,7 +75,8 @@ class Kitchen extends React.Component {
   }
 
   fetchData = () => {
-    axios.get("/kitchen",{hi: "there"})
+    console.log("fetch")
+    axios.get("/kitchen")
       .then((response) => {
         this.setState({data: response.data})
       })
@@ -73,11 +88,19 @@ class Kitchen extends React.Component {
   render(){
     // data = data == null ? [] : data;
     const {data, showCheckboxes} = this.state
-    console.log("this is data : ", data);
+    // console.log("this is data : ", data);
     return (
-      <div>
+      <div >
 
-        <Table>
+        <AppBar
+          title="Kitchen"
+          style={{backgroundColor: "#D50000"}}
+          iconElementLeft={<icon/>}
+          // iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
+
+
+        <Table style ={{top: "100px"}}>
           <TableHeader displaySelectAll={this.state.showCheckboxes} adjustForCheckbox={this.state.showCheckboxes}>
 
           <TableRow>
