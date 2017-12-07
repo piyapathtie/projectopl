@@ -85,7 +85,7 @@ class Dessert extends Component {
           kind: "dessert",
           image: "/img/dessert/HONEYCAKE.jpg",
           name: "HONEY CAKE",
-          price: 123
+          price: 120
         },
         {
           kind: "dessert",

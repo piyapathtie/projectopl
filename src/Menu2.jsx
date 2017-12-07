@@ -94,7 +94,7 @@ class Menu2 extends Component {
         {
           kind: "food",
           image: "/img/food/FRIEDFILLETWHITESANPPER.jpg",
-          name: "FRIEDFILLETWHITESANPPER",
+          name: "FRIED FILLET WHITE SANPPER",
           price: 220
         },
         {

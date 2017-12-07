@@ -20,6 +20,8 @@ import Cancel from 'material-ui/svg-icons/navigation/cancel';
 import IconButton from 'material-ui/IconButton';
 
 
+
+
 class Monitor extends React.Component {
   constructor(props) {
     super(props)
@@ -30,6 +32,8 @@ class Monitor extends React.Component {
       open: false,
       sum: 0,
       openthank: false,
+      opencancel: false,
+      table: String(localStorage.getItem("tableID")),
     }
     this.tick  = this.tick.bind(this)
   }
@@ -38,11 +42,11 @@ class Monitor extends React.Component {
     // console.log("tick")
     // this.fetchData(String(localStorage.getItem("tableID")))
     this.setState({secondsElapsed: this.state.secondsElapsed + 1});
-    this.fetchData(String(localStorage.getItem("tableID")));
+    this.fetchData(this.state.table);
   }
 
   componentDidMount = () => {
-    this.fetchData(String(localStorage.getItem("tableID")));
+    this.fetchData(this.state.table);
     this.interval = setInterval(this.tick, 5000);
   }
 
@@ -102,7 +106,11 @@ class Monitor extends React.Component {
   remove = (uuid) => {
     axios.delete(`/delfood/${String(uuid)}`)
       .then((response) => {
-        this.fetchData(String(localStorage.getItem("tableID")));
+        console.log(response.data)
+        if(response.data === false){
+          this.handleOpencancel()
+        }
+        // this.fetchData(String(localStorage.getItem("tableID")));
         // console.log(response)
       })
       .catch((error) => {
@@ -125,6 +133,14 @@ class Monitor extends React.Component {
 
   handleClosethank = () => {
     this.setState({openthank: false});
+  };
+
+  handleOpencancel = () => {
+    this.setState({opencancel: true});
+  };
+
+  handleClosecancel = () => {
+    this.setState({opencancel: false});
   };
 
 
@@ -154,12 +170,14 @@ class Monitor extends React.Component {
         primary={true}
         onClick={() => this.finish(String(localStorage.getItem("tableID")))}
       />,
-      // <FlatButton
-      //   label="Submit"
-      //   primary={true}
-      //   disabled={true}
-      //   onClick={this.handleClosethank}
-      // />,
+    ];
+
+    const actionscancel = [
+      <FlatButton
+        label="Dismiss"
+        primary={true}
+        onClick={() => this.handleClosecancel()}
+      />,
     ];
 
     return (
@@ -167,13 +185,17 @@ class Monitor extends React.Component {
         {/* {this.state.secondsElapsed} */}
         <Bar />
 
-        <Table style={{ marginTop: "70px"}}>
+        <h1 style={{fontSize: "x-large"}}>Table: {this.state.table}</h1>
+
+        <Table
+          // style={{ marginTop: "70px"}}
+          >
           <TableHeader displaySelectAll={this.state.showCheckboxes} adjustForCheckbox={this.state.showCheckboxes}>
 
           <TableRow>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
-            <TableHeaderColumn>cancel</TableHeaderColumn>
+            <TableHeaderColumn>Cancellation</TableHeaderColumn>
 
           </TableRow>
         </TableHeader>
@@ -238,7 +260,16 @@ class Monitor extends React.Component {
         modal={true}
         open={this.state.openthank}
       >
-        The total amout is {`${this.state.sum}`}. Please prceed to the cashier.
+        The total amout is {`${this.state.sum}`}. Please proceed to the cashier.
+      </Dialog>
+
+      <Dialog
+        title="Warnning"
+        actions={actionscancel}
+        modal={true}
+        open={this.state.opencancel}
+      >
+        Sorry, your menu is already cooking
       </Dialog>
 
       </div>

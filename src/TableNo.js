@@ -88,6 +88,7 @@ class enterNo extends React.Component {
         else{
           localStorage.setItem("tableID", parseInt(this.state.input))
           this.props.history.push('/main')
+          localStorage.setItem('toCart', JSON.stringify([]))
         }
 
       })

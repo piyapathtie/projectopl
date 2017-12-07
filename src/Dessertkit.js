@@ -93,7 +93,7 @@ class DessertKitchen extends React.Component {
       <div>
 
         <AppBar
-          title="Dessert kitchen"
+          title="Dessert Kitchen"
           style={{backgroundColor: "#D50000"}}
           iconElementLeft={<icon/>}
           // iconClassNameRight="muidocs-icon-navigation-expand-more"

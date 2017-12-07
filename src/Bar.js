@@ -10,7 +10,7 @@ import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
 import Cancel from 'material-ui/svg-icons/navigation/cancel';
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 // import * as FontAwesome from 'react-icons/lib/fa'
-import {ListItem} from 'material-ui/List';
+import {List, ListItem} from 'material-ui/List';
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import { browserHistory } from 'react-router';
@@ -24,6 +24,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 
 const style = {
+  // top: 20,
   margin: 12,
   bottom: 0,
 };
@@ -118,12 +119,13 @@ class DrawerUndockedExample extends React.Component {
           <MenuItem onClick={() => this.props.history.push('/monitor')}>Your Order</MenuItem>
         </Drawer>
 
-        <Drawer docked={false} width={200} openSecondary={true} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
+        <Drawer docked={false} width={250} openSecondary={true} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
           <AppBar title="Cart" onClick={this.handleClose} style={{backgroundColor: "#D50000"}}/>
           {/* {data.map((each) => each.food)} */}
 
-          {data.map((each) => {
+          <List style={{height: "696px", overflow: "scroll"}}>
 
+          {data.map((each) => {
             return(
               <ListItem
                 // onClick={() => console.log(getIndex(each, data))}
@@ -134,11 +136,20 @@ class DrawerUndockedExample extends React.Component {
               )
             })
           }
-          <div className = "finishOrder">
-            <RaisedButton label="Order" secondary={true} style={style}
-              onClick={this.sendRequest}
+        </List>
+
+            <RaisedButton
+              label="Order"
+              disabled={data.length === 0}
+              secondary={true}
+              style={style}
+              labelStyle={{top: "15px", fontSize: "18px"}}
+              fullWidth={true}
+              style={{minWidth: "100%", height: "50px",}}
+              // onClick={this.sendRequest}
+              onClick={()=> this.sendRequest()}
             />
-          </div>
+          {/* </div> */}
 
         </Drawer>
 

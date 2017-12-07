@@ -34,6 +34,7 @@ import {
 } from 'material-ui/Table';
 
 import AppBar from 'material-ui/AppBar';
+import Dialog from 'material-ui/Dialog';
 
 
 class Cashier extends React.Component {
@@ -43,6 +44,8 @@ class Cashier extends React.Component {
       showCheckboxes: false,
       data: [],
       secondsElapsed: 0,
+      toshow: [],
+      sum: 0,
     }
     this.tick  = this.tick.bind(this)
   }
@@ -86,10 +89,46 @@ class Cashier extends React.Component {
       })
   }
 
+  checklst = (tableid, amount) => {
+    this.setState({sum: amount})
+    this.handleOpen()
+    axios.get(`/info_cashier/${tableid}`)
+      .then((response) => {
+        this.setState({toshow: response.data})
+        // this.setState({toshow: response})
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   render(){
     // data = data == null ? [] : data;
-    const {data, showCheckboxes} = this.state
+    const {data, showCheckboxes, toshow, sum} = this.state
     // console.log("this is data : ", data);
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Print"
+        primary={true}
+        // keyboardFocused={true}
+        // onClick={() => this.addCashier(String(localStorage.getItem("tableID")))}
+      />,
+    ];
+
     return (
       <div>
 
@@ -106,7 +145,9 @@ class Cashier extends React.Component {
           <TableRow>
             <TableHeaderColumn>Table ID</TableHeaderColumn>
             <TableHeaderColumn>Price</TableHeaderColumn>
-            <TableHeaderColumn>Status</TableHeaderColumn>
+            <TableHeaderColumn>View Status</TableHeaderColumn>
+            <TableHeaderColumn>Update Status</TableHeaderColumn>
+            <TableHeaderColumn>Current Status</TableHeaderColumn>
           </TableRow>
         </TableHeader>
 
@@ -119,10 +160,21 @@ class Cashier extends React.Component {
               <TableRowColumn>{each.id}</TableRowColumn>
               <TableRowColumn>{each.amount}</TableRowColumn>
               <TableRowColumn>
-                {/* {<DropDownMenuOpenImmediateExample />} */}
-                <MenuItem  primaryText="paid" onClick={() => this.updateItemStatus(each.UUID, "paid")}/>
-                {/* <MenuItem  primaryText="Cooking" onClick={() => this.updateItemStatus(each.UUID, "Cooking")}/>
-                <MenuItem  primaryText="Done" onClick={() => this.updateItemStatus(each.UUID, "Done")}/> */}
+                <MenuItem  primaryText="View"
+                  // onClick={() => this.updateItemStatus(each.UUID, "Paid")}
+                  onClick = {() => this.checklst(each.id, each.amount)}
+                  // onClick={()=>console.log(data)}
+                />
+              </TableRowColumn>
+
+              <TableRowColumn>
+
+                <MenuItem  primaryText="Paid"
+                  onClick={() => this.updateItemStatus(each.UUID, "Paid")}
+                  // onClick = {() => this.checklst(each.id, each.amount)}
+                  // onClick={()=>console.log(data)}
+                />
+
               </TableRowColumn>
               <TableRowColumn>{each.status}</TableRowColumn>
               {/* <TableRowColumn> <RaisedButton onClick={() => console.log(each)}/> </TableRowColumn> */}
@@ -134,6 +186,28 @@ class Cashier extends React.Component {
 
       </TableBody>
     </Table>
+
+      <Dialog
+        title="Your Order"
+        actions={actions}
+        modal={false}
+        open={this.state.open}
+        onRequestClose={this.handleClose}
+        autoScrollBodyContent={true}>
+        {/* <RadioButtonGroup name="shipSpeed" defaultSelected="not_light" displaySelectAll={false} > */}
+          {toshow.map((each) => {
+            return(
+              <ListItem
+                primaryText = {each.food}
+                // secondaryText = {each.price}
+                rightAvatar = {<FlatButton label= {each.price}/>}
+                />
+              )
+            })
+          }
+          <ListItem primaryText = "Total Amount: " rightAvatar = {<FlatButton label = {this.state.sum}/>}/>
+        {/* </RadioButtonGroup> */}
+      </Dialog>
 
       </div>
     )
