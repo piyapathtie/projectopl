@@ -93,13 +93,6 @@ class Monitor extends React.Component {
   finish = (table_id) => {
     this.handleClosethank()
     this.props.history.push('/main')
-    axios.delete(`/check_out_2/${String(table_id)}`)
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
   }
 
 

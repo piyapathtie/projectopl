@@ -64,7 +64,15 @@ class Cashier extends React.Component {
     clearInterval(this.interval);
   }
 
-  updateItemStatus = (uuid, status) => {
+  updateItemStatus = (uuid, status, table_id) => {
+
+    axios.delete(`/check_out_2/${String(table_id)}`)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
     // console.log(uuid)
     // console.log(status)
     axios.post(`/cashier_update/${uuid}/${status}`)
@@ -170,7 +178,7 @@ class Cashier extends React.Component {
               <TableRowColumn>
 
                 <MenuItem  primaryText="Paid"
-                  onClick={() => this.updateItemStatus(each.UUID, "Paid")}
+                  onClick={() => this.updateItemStatus(each.UUID, "Paid", each.id)}
                   // onClick = {() => this.checklst(each.id, each.amount)}
                   // onClick={()=>console.log(data)}
                 />
